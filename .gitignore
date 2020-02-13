@@ -1,0 +1,7 @@
+bin/
+dist/
+config/local.conf
+.vscode
+**/*.gen.go
+src/generated/
+.scannerwork
