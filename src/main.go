@@ -125,7 +125,7 @@ func main() {
 			err,
 		)
 
-		os.Exit(1)
+		os.Exit(0)
 
 		return
 	}
@@ -142,7 +142,7 @@ func main() {
 			err,
 		)
 
-		os.Exit(1)
+		os.Exit(0)
 
 		return
 	}
@@ -156,7 +156,7 @@ func main() {
 			resp.Status,
 		)
 
-		os.Exit(1)
+		os.Exit(0)
 
 		return
 	}
@@ -171,7 +171,7 @@ func main() {
 			err,
 		)
 
-		os.Exit(1)
+		os.Exit(0)
 
 		return
 	}

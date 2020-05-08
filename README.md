@@ -44,5 +44,5 @@ $> make --always-make
 ### Release build
 
 ```
-$> BUILD_VERSION=1.0.0 make --always-make
+$> BUILD_VERSION=1.1.0 make --always-make
 ```
