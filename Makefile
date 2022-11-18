@@ -1,5 +1,6 @@
 # Project config
 PROJECT_NAME=sshmon_check_elasticsearch
+PROJECT_URL=https://github.com/indece-official/sshmon-check-elasticsearch
 BUILD_DATE=$(shell date +%Y%m%d.%H%M%S)
 BUILD_VERSION ?= $(shell git rev-parse --short HEAD)-SNAPSHOT
 
@@ -17,6 +18,7 @@ BINARY_NAME_LINUX64=$(PROJECT_NAME)-$(BUILD_VERSION)-linux-amd64
 SHA256_NAME_LINUX64=$(PROJECT_NAME)-$(BUILD_VERSION)-linux-amd64.sha256
 LDFLAGS := 
 LDFLAGS := $(LDFLAGS) -X main.ProjectName=$(PROJECT_NAME)
+LDFLAGS := $(LDFLAGS) -X main.ProjectURL=$(PROJECT_URL)
 LDFLAGS := $(LDFLAGS) -X main.BuildDate=$(BUILD_DATE)
 LDFLAGS := $(LDFLAGS) -X main.BuildVersion=$(BUILD_VERSION)
 
@@ -24,7 +26,7 @@ all: test build
 
 build:
 	mkdir -p $(DIR_DIST)/bin
-	$(GOBUILD) -ldflags "$(LDFLAGS)" -o $(DIR_DIST)/bin/$(BINARY_NAME_LINUX64) -tags=prod -v $(DIR_SOURCE)/main.go
+	CGO_ENABLED=0 $(GOBUILD) -ldflags "$(LDFLAGS)" -o $(DIR_DIST)/bin/$(BINARY_NAME_LINUX64) -tags=prod -v $(DIR_SOURCE)/main.go
 	(cd $(DIR_DIST)/bin && sha256sum $(BINARY_NAME_LINUX64) > $(SHA256_NAME_LINUX64))
 
 test:

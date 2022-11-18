@@ -17,6 +17,7 @@ import (
 // Variables set during build
 var (
 	ProjectName  string
+	ProjectURL   string
 	BuildVersion string
 	BuildDate    string
 )
@@ -32,8 +33,8 @@ type esStatus string
 
 const (
 	esStatusGreen  esStatus = "green"
-	esStatusYellow          = "yellow"
-	esStatusRed             = "red"
+	esStatusYellow esStatus = "yellow"
+	esStatusRed    esStatus = "red"
 )
 
 type esHealthResponse struct {
@@ -57,11 +58,11 @@ func resolveDNS(host string) (string, error) {
 
 	r, _, err := c.Exchange(&m, *flagDNS)
 	if err != nil {
-		return "", fmt.Errorf("Can't resolve '%s' on %s: %s", host, *flagDNS, err)
+		return "", fmt.Errorf("can't resolve '%s' on %s: %s", host, *flagDNS, err)
 	}
 
 	if len(r.Answer) == 0 {
-		return "", fmt.Errorf("Can't resolve '%s' on %s: No results", host, *flagDNS)
+		return "", fmt.Errorf("can't resolve '%s' on %s: No results", host, *flagDNS)
 	}
 
 	aRecord := r.Answer[0].(*dns.A)
@@ -75,9 +76,9 @@ func main() {
 	if *flagVersion {
 		fmt.Printf("%s %s (Build %s)\n", ProjectName, BuildVersion, BuildDate)
 		fmt.Printf("\n")
-		fmt.Printf("https://github.com/indece-official/sshmon-check-elasticsearch\n")
+		fmt.Printf("%s\n", ProjectURL)
 		fmt.Printf("\n")
-		fmt.Printf("Copyright 2020 by indece UG (haftungsbeschränkt)\n")
+		fmt.Printf("Copyright 2022 by indece UG (haftungsbeschränkt)\n")
 
 		os.Exit(0)
 
@@ -99,7 +100,7 @@ func main() {
 				if *flagDNS != "" {
 					addrParts := strings.Split(addr, ":")
 					if len(addrParts) != 2 {
-						return nil, fmt.Errorf("Error parsing address '%s': must have format <host>:<port>", addr)
+						return nil, fmt.Errorf("error parsing address '%s': must have format <host>:<port>", addr)
 					}
 
 					addrParts[0], err = resolveDNS(addrParts[0])
